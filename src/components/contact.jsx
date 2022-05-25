@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
+import { createUser } from '../services/create.user.service';
 
 
 const initialState = {
@@ -17,15 +18,24 @@ export const Contact = (props) => {
     setState((prevState) => ({ ...prevState, [name]: value }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(name, phone, address);
     e.target.reset();
-    Swal.fire(
-      'Datos Cargados',
-      'Espera nuestra llamada en pocos minutos',
-      'success'
-    )
+    let response = await createUser({
+      name: name,
+      wapPhone: phone,
+      address: address
+    });
+
+    if(response.statusCode === 200)
+      Swal.fire(
+        'Datos Cargados',
+        'Espera nuestra llamada en pocos minutos',
+        'success'
+      );
+    else 
+        alert("Tenemos problemas, intenta mas tarde.");
  
   }
   return (
