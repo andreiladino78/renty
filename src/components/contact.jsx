@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { createUser } from '../services/create.user.service';
+import createUser from '../services/create.user.service';
 
 
 const initialState = {
